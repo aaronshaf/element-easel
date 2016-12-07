@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>shaf-draw</title>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+  <script src="https://unpkg.com/@webcomponents/custom-elements@1.0.0-alpha.3"></script>
+  <script src="https://unpkg.com/shaf-draw"></script>
+  <style>
+    pre { margin-top: 8px; }
+    label, .label-text {
+      vertical-align: middle;
+      font-weight: normal;
+      margin-bottom: 0; /* override bootstrap */
+    }
+    .example {
+      margin-top: 36px;
+      margin-bottom: 36px;
+    }
+  </style>
+  <script>
+  // https://github.com/component/escape-html/blob/master/index.js
+  var matchHtmlRegExp = /[""&<>]/;
+  function escapeHtml(a){var b=""+a,c=matchHtmlRegExp.exec(b);if(!c)return b;var d,e="",f=0,g=0;for(f=c.index;f<b.length;f++){switch(b.charCodeAt(f)){case 34:d="&quot;";break;case 38:d="&amp;";break;case 39:d="&#39;";break;case 60:d="&lt;";break;case 62:d="&gt;";break;default:continue}g!==f&&(e+=b.substring(g,f)),g=f+1,e+=d}return g!==f?e+b.substring(g,f):e}
+  </script>
+</head>
+<body>
+  <div style="margin: 48px;">
+    <h1>shaf-draw</h1>
+    <div class="example">
+      <shaf-draw>
+        <input id="example1" type="checkbox" name="joyful" value="yes" checked />
+      </shaf-draw>
+      <pre id="example1code"></pre>
+    </div>
+    <script>
+    function showExample1 (event) {
+      example1code.innerHTML = escapeHtml(
+`<shaf-draw>
+  <input type="checkbox" name="joyful" value="yes" />
+</shaf-draw>`)
+    }
+    showExample1()
+    </script>
+  </div>
+
+  <script src="https://unpkg.com/github-corner@2.0.2"></script>
+  <github-corner>
+    <a href="https://github.com/aaronshaf/shaf-draw">GitHub</a>
+  </github-corner>
+</body>

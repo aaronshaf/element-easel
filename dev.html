@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>shaf-draw</title>
+  <link rel="stylesheet" href="vendor/bootstrap.css" />
+  <script src="vendor/custom-elements-polyfill.js"></script>
+  <script src="index.js"></script>
+  <style>
+    pre { margin-top: 8px; }
+    label, .label-text {
+      vertical-align: middle;
+      font-weight: normal;
+      margin-bottom: 0; /* override bootstrap */
+    }
+    .example {
+      margin-top: 36px;
+      margin-bottom: 36px;
+    }
+  </style>
+  <script>
+  // https://github.com/component/escape-html/blob/master/index.js
+  var matchHtmlRegExp = /[""&<>]/;
+  function escapeHtml(a){var b=""+a,c=matchHtmlRegExp.exec(b);if(!c)return b;var d,e="",f=0,g=0;for(f=c.index;f<b.length;f++){switch(b.charCodeAt(f)){case 34:d="&quot;";break;case 38:d="&amp;";break;case 39:d="&#39;";break;case 60:d="&lt;";break;case 62:d="&gt;";break;default:continue}g!==f&&(e+=b.substring(g,f)),g=f+1,e+=d}return g!==f?e+b.substring(g,f):e}
+  </script>
+</head>
+<body>
+  <div style="margin: 48px;">
+    <div class="example">
+      <shaf-draw
+        color="red"
+        stroke-width="3"
+      >
+        <img style="width: 500px; height: 520px;" src="https://d3vv6lp55qjaqc.cloudfront.net/items/40441f0l3t220i3o363T/Screen%20Shot%202016-12-02%20at%2012.52.21%20PM.png?X-CloudApp-Visitor-Id=8c7c3ddb4f82754e00f6dac0eaa0cbfa&v=08aed1ee" />
+      </shaf-draw>
+    </div>
+  </div>
+  <style>
+  shaf-draw { display: inline-block; }
+  </style>
+
+  <!-- script src="https://unpkg.com/github-corner@2.0.2"></script>
+  <github-corner>
+    <a href="https://github.com/aaronshaf/shaf-draw">GitHub</a>
+  </github-corner -->
+</body>
