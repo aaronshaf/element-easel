@@ -26,5 +26,20 @@
   "dependencies": {
     "create-element-class": "^1.0.1",
     "lodash": "^4.17.2"
-  }
+  },
+  "name": "element-easel",
+  "description": "```html <!-- Custom Elements v1 polyfill (2.7KB gzipped) --> <script src=\"https://unpkg.com/@webcomponents/custom-elements@1.0.0-alpha.3\"></script> ```",
+  "version": "1.0.0",
+  "directories": {
+    "doc": "docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aaronshaf/element-easel.git"
+  },
+  "author": "Aaron Shafovaloff <aaronshaf@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/aaronshaf/element-easel/issues"
+  },
+  "homepage": "https://github.com/aaronshaf/element-easel#readme"
 }

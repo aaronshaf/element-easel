@@ -7,11 +7,6 @@
   <script src="https://unpkg.com/element-easel"></script>
   <style>
     pre { margin-top: 8px; }
-    label, .label-text {
-      vertical-align: middle;
-      font-weight: normal;
-      margin-bottom: 0; /* override bootstrap */
-    }
     .example {
       margin-top: 36px;
       margin-bottom: 36px;
@@ -25,26 +20,35 @@
 </head>
 <body>
   <div style="margin: 48px;">
-    <h1>element-easel</h1>
     <div class="example">
-      <element-easel>
-        <input id="example1" type="checkbox" name="joyful" value="yes" checked />
+      <element-easel
+        id="punk"
+        stroke="red"
+        stroke-width="5"
+      >
+        <img
+          draggable="false"
+          style="width: 534px; height: 600px; pointer-events: none;"
+          src="https://louisdietvorst.files.wordpress.com/2013/08/canvas.jpg"
+          onmousedown="return false;"
+        />
       </element-easel>
-      <pre id="example1code"></pre>
     </div>
-    <script>
-    function showExample1 (event) {
-      example1code.innerHTML = escapeHtml(
-`<element-easel>
-  <input type="checkbox" name="joyful" value="yes" />
-</element-easel>`)
-    }
-    showExample1()
-    </script>
+    <pre style="margin-top: 48px;" id="test"></pre>
   </div>
-
-  <script src="https://unpkg.com/github-corner@2.0.2"></script>
-  <github-corner>
-    <a href="https://github.com/aaronshaf/element-easel">GitHub</a>
-  </github-corner>
+  <style>
+  element-easel { display: inline-block; }
+  img {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    user-drag: none;
+    -webkit-touch-callout: none;
+  }
+  </style>
+  <script>
+  window.ondragstart = function() { return false; }
+  </script>
 </body>
