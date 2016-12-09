@@ -51,7 +51,7 @@ export default class Draw extends Component {
     const point = {
       x: event.clientX - divPosition.x,
       y: event.clientY - divPosition.y,
-      width: (event.pressure || 0.5) * this.props.strokeWidth
+      width: getPressure(event) * this.props.strokeWidth
     }
     this.setState({
       isDrawing: true,
@@ -66,7 +66,7 @@ export default class Draw extends Component {
     const point = {
       x: event.clientX - divPosition.x,
       y: event.clientY - divPosition.y,
-      width: 5
+      width: getPressure(event) * this.props.strokeWidth
     }
     this.setState({
       currentPaths: [this.state.currentPaths[0].concat([point])]
@@ -122,7 +122,7 @@ export default class Draw extends Component {
     const point = {
       x: event.clientX - divPosition.x,
       y: event.clientY - divPosition.y,
-      width: (event.pressure || 0.5) * this.props.strokeWidth
+      width: getPressure(event) * this.props.strokeWidth
     }
     this.setState({
       currentPaths: [this.state.currentPaths[0].concat([point])]
@@ -243,4 +243,8 @@ function flatten (arrays) {
 function getPosition (element) {
    var rect = element.getBoundingClientRect()
    return {x: rect.left, y: rect.top}
+}
+
+function getPressure (event) {
+  return event.pressure || event.force || event.webkitForce || 0.5
 }
