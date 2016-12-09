@@ -3,7 +3,7 @@
 import preact, { Component } from 'preact'
 import Gesture from './gesture'
 
-const MINIMUM_PRESSURE = 0.25
+const MINIMUM_PRESSURE = 0.2
 
 export default class Draw extends Component {
   constructor (props) {
