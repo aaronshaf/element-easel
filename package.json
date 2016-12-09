@@ -29,7 +29,7 @@
   },
   "name": "element-easel",
   "description": "Wrap an element. Paint on it.",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "directories": {
     "doc": "docs"
   },
