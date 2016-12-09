@@ -11,7 +11,7 @@
 ```
 
 ```html
-<element-easel>
+<element-easel stroke="red" stroke-width="5">
   <div>
     My stuff
   </div>
