@@ -1,5 +1,7 @@
 ## React custom element boilerplate
 
+Try it with pressure-sensitive tablet or phone. It's fun!
+
 ```html
 <!-- Custom Elements v1 polyfill (2.7KB gzipped) -->
 <script src="https://unpkg.com/@webcomponents/custom-elements@1.0.0-alpha.3"></script>
