@@ -29,7 +29,7 @@
   },
   "name": "element-easel",
   "description": "```html <!-- Custom Elements v1 polyfill (2.7KB gzipped) --> <script src=\"https://unpkg.com/@webcomponents/custom-elements@1.0.0-alpha.3\"></script> ```",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "directories": {
     "doc": "docs"
   },
