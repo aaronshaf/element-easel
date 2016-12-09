@@ -1,7 +1,9 @@
 /** @jsx preact.h */
 
 import preact, { Component } from 'preact'
-import Path from './path'
+import Gesture from './gesture'
+
+const MINIMUM_PRESSURE = 0.25
 
 export default class Draw extends Component {
   constructor (props) {
@@ -9,16 +11,48 @@ export default class Draw extends Component {
     this.state = {
       isDrawing: false,
       drawings: [],
-      currentPaths: null
+      currentPaths: [],
+      strokeWidth: props.strokeWidth
     }
   }
 
   handleMouseDown = (event) => {
-    console.debug('handleMouseDown')
-    const point = [
-      event.offsetX,
-      event.offsetY
-    ]
+    if (window.PointerEvent) return
+    event.stopPropagation()
+    this.handlePointerDown(event)
+  }
+
+  handleTouchStart = (event) => {
+    if (window.PointerEvent) return
+    event.stopPropagation()
+    event.preventDefault()
+    const divPosition = getPosition(this.div)
+    if (this.state.isDrawing) { return }
+    const currentPaths = Array.from(event.touches).map((touch) => {
+      return [
+        touch.clientX - divPosition.x,
+        touch.clientY - divPosition.y
+      ]
+    })
+    this.setState({
+      isDrawing: true,
+      currentPaths
+    })
+  }
+
+  handlePointerDown = (event) => {
+    if (
+      this.state.isDrawing ||
+      (event.pressure && event.pressure < (MINIMUM_PRESSURE / 2))
+    ) {
+      return false
+    }
+    const divPosition = getPosition(this.div)
+    const point = {
+      x: event.clientX - divPosition.x,
+      y: event.clientY - divPosition.y,
+      width: (event.pressure || 0.5) * this.props.strokeWidth
+    }
     this.setState({
       isDrawing: true,
       currentPaths: [[point]]
@@ -26,23 +60,127 @@ export default class Draw extends Component {
   }
 
   handleMouseMove = (event) => {
+    if (window.PointerEvent) return false
     if (!this.state.isDrawing) return false
-    const point = [
-      event.offsetX, // - this.div.offsetLeft,
-      event.offsetY // - this.div.offsetTop
-    ]
+    const divPosition = getPosition(this.div)
+    const point = {
+      x: event.clientX - divPosition.x,
+      y: event.clientY - divPosition.y,
+      width: 5
+    }
     this.setState({
       currentPaths: [this.state.currentPaths[0].concat([point])]
     })
   }
 
+  handleTouchMove = (event) => {
+    if (
+      window.PointerEvent ||
+      !this.state.isDrawing
+    ) {
+      return false
+    }
+    if (event.touches.length > 1) {
+      this.handleTouchEnd(event)
+      return false
+    }
+    const divPosition = getPosition(this.div)
+    const newPoints = Array.from(event.touches).map((touch) => {
+      const point = {
+        x: touch.clientX - divPosition.x,
+        y: touch.clientY - divPosition.y,
+        width: 5
+      }
+      return point
+    })
+    const currentPaths = this.state.currentPaths.map((path, index) => {
+      return path.concat([newPoints[index]])
+    })
+    this.setState({
+      currentPaths
+    })
+  }
+
+  handlePointerMove = (event) => {
+    if (
+      !this.state.isDrawing &&
+      (event.pressure && event.pressure >= MINIMUM_PRESSURE)
+    ) {
+      this.handlePointerDown(event)
+      return false
+    }
+    if (
+      this.state.isDrawing &&
+      (event.pressure && event.pressure < MINIMUM_PRESSURE)
+    ) {
+      this.handlePointerUp()
+      return false
+    } else if (!this.state.isDrawing) {
+      return false
+    }
+    const divPosition = getPosition(this.div)
+    const point = {
+      x: event.clientX - divPosition.x,
+      y: event.clientY - divPosition.y,
+      width: (event.pressure || 0.5) * this.props.strokeWidth
+    }
+    this.setState({
+      currentPaths: [this.state.currentPaths[0].concat([point])]
+    })
+    document.getElementById('test').innerHTML = JSON.stringify({
+      pressure: event.pressure
+    }, null, 2)
+  }
+
   handleMouseUp = () => {
-    console.debug('handleMouseUp', this.state)
+    if (window.PointerEvent) return
+    this.setState({
+      isDrawing: false,
+      drawings: this.state.drawings.concat([this.state.currentPaths]),
+      currentPaths: []
+    })
+  }
+
+  handleTouchEnd = () => {
+    if (
+      window.PointerEvent ||
+      !this.state.isDrawing
+    ) {
+      return
+    }
     this.setState({
       isDrawing: false,
       drawings: this.state.drawings.concat([this.state.currentPaths]),
       currentPaths: null
     })
+  }
+
+  handlePointerUp = () => {
+    let drawings = this.state.drawings
+    if (this.state.isDrawing) {
+      drawings =this.state.drawings.concat([this.state.currentPaths])
+    }
+    this.setState({
+      isDrawing: false,
+      drawings,
+      currentPaths: null
+    })
+  }
+
+  handlePointerLeave = () => {
+    this.handlePointerUp()
+  }
+
+  handlePointerCancel = () => {
+    this.handlePointerUp()
+  }
+
+  handleContextMenuClick = (event) => {
+    event.preventDefault()
+    this.setState({
+      drawings: this.state.drawings.slice(0, -1)
+    })
+    return false
   }
 
   setDiv = (node) => { this.div = node }
@@ -51,8 +189,8 @@ export default class Draw extends Component {
     const paths = flatten(this.state.drawings.map((drawing) => {
       return drawing.map((path) => {
         return (
-          <Path
-            color={props.color || 'black'}
+          <Gesture
+            strokeColor={props.strokeColor}
             strokeWidth={props.strokeWidth || 1}
             path={path}
           />
@@ -63,8 +201,8 @@ export default class Draw extends Component {
     if (this.state.currentPaths) {
       currentPaths = this.state.currentPaths.map((path) => {
         return (
-          <Path
-            color={props.color || 'black'}
+          <Gesture
+            strokeColor={props.strokeColor}
             strokeWidth={props.strokeWidth || 1}
             path={path}
           />
@@ -74,9 +212,19 @@ export default class Draw extends Component {
 
     return (
       <div
+        className='draw-canvas'
         onMouseDown={this.handleMouseDown}
         onMouseUp={this.handleMouseUp}
         onMouseMove={this.handleMouseMove}
+        onPointerDown={this.handlePointerDown}
+        onTouchStart={this.handleTouchStart}
+        onTouchMove={this.handleTouchMove}
+        onPointerMove={this.handlePointerMove}
+        onTouchEnd={this.handleTouchEnd}
+        onPointerUp={this.handlePointerUp}
+        onPointerLeave={this.handlePointerLeave}
+        onPointerCancel={this.handlePointerCancel}
+        onContextMenu={this.handleContextMenuClick}
         ref={this.setDiv}
         style="user-select: none;cursor: pointer;"
       >
@@ -93,4 +241,9 @@ function flatten (arrays) {
   return arrays.reduce((a, b) => {
     return a.concat(b)
   }, [])
+}
+
+function getPosition (element) {
+   var rect = element.getBoundingClientRect()
+   return {x: rect.left, y: rect.top}
 }

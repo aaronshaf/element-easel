@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>shaf-draw</title>
+  <title>element-easel</title>
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
   <script src="https://unpkg.com/@webcomponents/custom-elements@1.0.0-alpha.3"></script>
-  <script src="https://unpkg.com/shaf-draw"></script>
+  <script src="https://unpkg.com/element-easel"></script>
   <style>
     pre { margin-top: 8px; }
     label, .label-text {
@@ -25,19 +25,19 @@
 </head>
 <body>
   <div style="margin: 48px;">
-    <h1>shaf-draw</h1>
+    <h1>element-easel</h1>
     <div class="example">
-      <shaf-draw>
+      <element-easel>
         <input id="example1" type="checkbox" name="joyful" value="yes" checked />
-      </shaf-draw>
+      </element-easel>
       <pre id="example1code"></pre>
     </div>
     <script>
     function showExample1 (event) {
       example1code.innerHTML = escapeHtml(
-`<shaf-draw>
+`<element-easel>
   <input type="checkbox" name="joyful" value="yes" />
-</shaf-draw>`)
+</element-easel>`)
     }
     showExample1()
     </script>
@@ -45,6 +45,6 @@
 
   <script src="https://unpkg.com/github-corner@2.0.2"></script>
   <github-corner>
-    <a href="https://github.com/aaronshaf/shaf-draw">GitHub</a>
+    <a href="https://github.com/aaronshaf/element-easel">GitHub</a>
   </github-corner>
 </body>

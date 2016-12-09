@@ -7,9 +7,9 @@
 
 ```html
 <!-- Our custom element's source -->
-<script src="https://unpkg.com/shaf-draw"></script>
+<script src="https://unpkg.com/element-easel"></script>
 ```
 
 ```html
-<shaf-draw></shaf-draw>
+<element-easel></element-easel>
 ```

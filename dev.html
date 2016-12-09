@@ -1,17 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>shaf-draw</title>
+  <title>draw-element</title>
   <link rel="stylesheet" href="vendor/bootstrap.css" />
   <script src="vendor/custom-elements-polyfill.js"></script>
   <script src="index.js"></script>
   <style>
     pre { margin-top: 8px; }
-    label, .label-text {
-      vertical-align: middle;
-      font-weight: normal;
-      margin-bottom: 0; /* override bootstrap */
-    }
     .example {
       margin-top: 36px;
       margin-bottom: 36px;
@@ -26,20 +21,34 @@
 <body>
   <div style="margin: 48px;">
     <div class="example">
-      <shaf-draw
-        color="red"
-        stroke-width="3"
+      <element-easel
+        id="punk"
+        stroke="red"
+        stroke-width="5"
       >
-        <img style="width: 500px; height: 520px;" src="https://d3vv6lp55qjaqc.cloudfront.net/items/40441f0l3t220i3o363T/Screen%20Shot%202016-12-02%20at%2012.52.21%20PM.png?X-CloudApp-Visitor-Id=8c7c3ddb4f82754e00f6dac0eaa0cbfa&v=08aed1ee" />
-      </shaf-draw>
+        <img
+          draggable="false"
+          style="width: 534px; height: 600px; pointer-events: none;"
+          src="https://louisdietvorst.files.wordpress.com/2013/08/canvas.jpg"
+          onmousedown="return false;"
+        />
+      </element-easel>
     </div>
+    <pre style="margin-top: 48px;" id="test"></pre>
   </div>
   <style>
-  shaf-draw { display: inline-block; }
+  element-easel { display: inline-block; }
+  img {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    user-drag: none;
+    -webkit-touch-callout: none;
+  }
   </style>
-
-  <!-- script src="https://unpkg.com/github-corner@2.0.2"></script>
-  <github-corner>
-    <a href="https://github.com/aaronshaf/shaf-draw">GitHub</a>
-  </github-corner -->
+  <script>
+  window.ondragstart = function() { return false; }
+  </script>
 </body>

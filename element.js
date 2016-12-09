@@ -17,13 +17,9 @@ const DrawElement = createElementClass({
       height={this.clientHeight}
       width={this.clientWidth}
       color={this.getAttribute('color')}
+      strokeColor={this.getAttribute('stroke')}
       strokeWidth={this.getAttribute('stroke-width')}
     />, this, this.lastChild)
-    Object.defineProperties(this.div.style, {
-      position: {value: 'absolute'},
-      left: {value: 0},
-      top: {value: 0}
-    })
     this.rendered = true
   },
 
@@ -31,6 +27,28 @@ const DrawElement = createElementClass({
     if (this.rendered) { this.updateRendering() }
   }
 })
-DrawElement.observedAttributes = ['for', 'color', 'stroke-width']
+DrawElement.observedAttributes = ['stroke', 'stroke-width']
+
+document.addEventListener('DOMContentLoaded', () => {
+  const style = document.createElement('style')
+  style.type = 'text/css'
+  style.appendChild(document.createTextNode(
+`.draw-canvas {
+position: absolute;
+background-color: transparent;
+left: 0;
+top: 0;
+}`))
+  document.head.insertBefore(style, document.head.firstChild)
+
+  const tagStyle = document.createElement('style')
+  tagStyle.type = 'text/css'
+  tagStyle.appendChild(document.createTextNode(
+`element-easel {
+  position: relative;
+  display: block;
+}`))
+  document.head.insertBefore(tagStyle, document.head.firstChild)
+})
 
 export default DrawElement
