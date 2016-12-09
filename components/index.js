@@ -89,7 +89,7 @@ export default class Draw extends Component {
       const point = {
         x: touch.clientX - divPosition.x,
         y: touch.clientY - divPosition.y,
-        width: 5
+        width: getPressure(touch) * this.props.strokeWidth
       }
       return point
     })
