@@ -9,7 +9,7 @@ Try it with pressure-sensitive tablet or phone. It's fun!
 
 ```html
 <!-- Our custom element's source -->
-<script src="https://unpkg.com/element-easel@1.0.5"></script>
+<script src="https://unpkg.com/element-easel@1.0.6"></script>
 ```
 
 ```html
