@@ -7,7 +7,7 @@
 
 ```html
 <!-- Our custom element's source -->
-<script src="https://unpkg.com/element-easel@1.0.4"></script>
+<script src="https://unpkg.com/element-easel@1.0.5"></script>
 ```
 
 ```html
