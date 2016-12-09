@@ -33,11 +33,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const style = document.createElement('style')
   style.type = 'text/css'
   style.appendChild(document.createTextNode(
-`.draw-canvas {
-position: absolute;
-background-color: transparent;
-left: 0;
-top: 0;
+`.element-easel-draw-canvas {
+  position: absolute;
+  background-color: transparent;
+  left: 0;
+  top: 0;
+  user-select: none;
+  cursor: pointer;
 }`))
   document.head.insertBefore(style, document.head.firstChild)
 

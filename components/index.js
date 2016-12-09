@@ -3,7 +3,7 @@
 import preact, { Component } from 'preact'
 import Gesture from './gesture'
 
-const MINIMUM_PRESSURE = 0.25
+const MINIMUM_PRESSURE = 0.20
 
 export default class Draw extends Component {
   constructor (props) {
@@ -209,7 +209,7 @@ export default class Draw extends Component {
 
     return (
       <div
-        className='draw-canvas'
+        className='element-easel-draw-canvas'
         onMouseDown={this.handleMouseDown}
         onMouseUp={this.handleMouseUp}
         onMouseMove={this.handleMouseMove}
@@ -223,7 +223,6 @@ export default class Draw extends Component {
         onPointerCancel={this.handlePointerCancel}
         onContextMenu={this.handleContextMenuClick}
         ref={this.setDiv}
-        style="user-select: none;cursor: pointer;"
       >
         <svg style={`width: ${props.width}px; height: ${props.height}px;`}>
           {paths}
