@@ -5,27 +5,11 @@
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
   <script src="https://unpkg.com/@webcomponents/custom-elements@1.0.0-alpha.3"></script>
   <script src="https://unpkg.com/element-easel"></script>
-  <style>
-    pre { margin-top: 8px; }
-    .example {
-      margin-top: 36px;
-      margin-bottom: 36px;
-    }
-  </style>
-  <script>
-  // https://github.com/component/escape-html/blob/master/index.js
-  var matchHtmlRegExp = /[""&<>]/;
-  function escapeHtml(a){var b=""+a,c=matchHtmlRegExp.exec(b);if(!c)return b;var d,e="",f=0,g=0;for(f=c.index;f<b.length;f++){switch(b.charCodeAt(f)){case 34:d="&quot;";break;case 38:d="&amp;";break;case 39:d="&#39;";break;case 60:d="&lt;";break;case 62:d="&gt;";break;default:continue}g!==f&&(e+=b.substring(g,f)),g=f+1,e+=d}return g!==f?e+b.substring(g,f):e}
-  </script>
 </head>
 <body>
   <div style="margin: 48px;">
     <div class="example">
-      <element-easel
-        id="punk"
-        stroke="red"
-        stroke-width="5"
-      >
+      <element-easel stroke="red" stroke-width="5">
         <img
           draggable="false"
           style="width: 534px; height: 600px; pointer-events: none;"
@@ -34,7 +18,6 @@
         />
       </element-easel>
     </div>
-    <pre style="margin-top: 48px;" id="test"></pre>
   </div>
   <style>
   element-easel { display: inline-block; }

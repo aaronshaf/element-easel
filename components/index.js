@@ -3,7 +3,7 @@
 import preact, { Component } from 'preact'
 import Gesture from './gesture'
 
-const MINIMUM_PRESSURE = 0.2
+const MINIMUM_PRESSURE = 0.25
 
 export default class Draw extends Component {
   constructor (props) {
@@ -127,9 +127,6 @@ export default class Draw extends Component {
     this.setState({
       currentPaths: [this.state.currentPaths[0].concat([point])]
     })
-    document.getElementById('test').innerHTML = JSON.stringify({
-      pressure: event.pressure
-    }, null, 2)
   }
 
   handleMouseUp = () => {

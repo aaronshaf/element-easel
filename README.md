@@ -11,5 +11,9 @@
 ```
 
 ```html
-<element-easel></element-easel>
+<element-easel>
+  <div>
+    My stuff
+  </div>
+</element-easel>
 ```
